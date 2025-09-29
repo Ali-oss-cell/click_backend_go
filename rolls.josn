@@ -1,0 +1,37 @@
+# Go Click Exprice Backend - Project Plan
+
+## Dependencies
+- github.com/golang-jwt/jwt/v5 v5.2.0 - JWT (JSON Web Token) implementation
+- github.com/gin-gonic/gin v1.9.1 - Web framework for building REST APIs
+- gorm.io/driver/postgres v1.6.0 - PostgreSQL driver for GORM
+
+## Project Overview
+- **Admin Account**: Single admin account for management
+- **Database**: PostgreSQL (internal database)
+- **Email System**: SMTP for customer contact functionality
+- **Server**: DigitalOcean droplet (1 GB Memory / 25 GB Disk / FRA1 - Ubuntu 25.04 x64)
+
+## API Endpoints
+
+### Blog Management
+```
+GET    /api/blogs              # Get all blog posts
+GET    /api/blogs/:id          # Get single blog post
+POST   /api/blogs              # Create new blog post
+PUT    /api/blogs/:id          # Update blog post
+DELETE /api/blogs/:id          # Delete blog post
+GET    /api/blogs/public       # Get published blog posts (public)
+```
+
+### Contact Management
+```
+GET    /api/contacts           # Get all contact submissions (admin)
+GET    /api/contacts/:id       # Get single submission (admin)
+POST   /api/contacts           # Submit contact form (public)
+PUT    /api/contacts/:id       # Update submission status (admin)
+DELETE /api/contacts/:id       # Delete submission (admin)
+```
+
+## Additional Features
+- **Image Handling**: Store image files with names only
+- **Email System**: Users can send emails to admin via SMTP
