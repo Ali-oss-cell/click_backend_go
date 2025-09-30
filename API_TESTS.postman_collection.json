@@ -1,13 +1,32 @@
 {
 	"info": {
 		"_postman_id": "click-exprice-backend-tests",
-		"name": "Click Exprice Backend API Tests",
-		"description": "Complete API testing collection for Click Exprice Backend",
+		"name": "Click Express Backend API Tests",
+		"description": "Complete API testing collection for Click Express Backend - Production Ready",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Health Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has status\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('status');",
+							"    pm.expect(jsonData.status).to.equal('ok');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -15,6 +34,37 @@
 					"raw": "{{base_url}}/health",
 					"host": ["{{base_url}}"],
 					"path": ["health"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Root Endpoint Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has message\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('message');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": ["{{base_url}}"],
+					"path": [""]
 				}
 			},
 			"response": []
@@ -50,7 +100,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@clickexprice.com\",\n    \"password\": \"AdminPass123!\"\n}"
+					"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@clickexpress.ae\",\n    \"password\": \"AdminPass123!\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/auth/create-admin",
@@ -143,7 +193,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Welcome to Click Exprice\",\n    \"content\": \"This is our first blog post! We are excited to share our journey with you. Click Exprice is a revolutionary platform that will change the way you think about pricing strategies.\",\n    \"image_name\": \"welcome-banner.jpg\",\n    \"image_file\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=\",\n    \"published\": true\n}"
+					"raw": "{\n    \"title\": \"Welcome to Click Express\",\n    \"content\": \"This is our first blog post! We are excited to share our journey with you. Click Express is a revolutionary platform that will change the way you think about pricing strategies.\",\n    \"image_name\": \"welcome-banner.jpg\",\n    \"image_file\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=\",\n    \"published\": true\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/blogs",
@@ -300,7 +350,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Updated: Welcome to Click Exprice\",\n    \"content\": \"This is our updated blog post! We have made some improvements and are excited to share our journey with you. Click Exprice is a revolutionary platform that will change the way you think about pricing strategies.\",\n    \"image_name\": \"updated-welcome-banner.jpg\",\n    \"image_file\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=\",\n    \"published\": true\n}"
+					"raw": "{\n    \"title\": \"Updated: Welcome to Click Express\",\n    \"content\": \"This is our updated blog post! We have made some improvements and are excited to share our journey with you. Click Express is a revolutionary platform that will change the way you think about pricing strategies.\",\n    \"image_name\": \"updated-welcome-banner.jpg\",\n    \"image_file\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=\",\n    \"published\": true\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/blogs/{{blog_id}}",
@@ -346,7 +396,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"subject\": \"Inquiry about Click Exprice\",\n    \"message\": \"Hello! I am interested in learning more about Click Exprice. Could you please provide more information about your pricing strategies and how they can benefit my business? Thank you!\"\n}"
+					"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"subject\": \"Inquiry about Click Express\",\n    \"message\": \"Hello! I am interested in learning more about Click Express. Could you please provide more information about your pricing strategies and how they can benefit my business? Thank you!\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/contacts",
@@ -571,7 +621,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8080",
+			"value": "https://clickexpress.ae",
 			"type": "string"
 		},
 		{
@@ -587,6 +637,11 @@
 		{
 			"key": "contact_id",
 			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "local_base_url",
+			"value": "http://localhost:8080",
 			"type": "string"
 		}
 	]
