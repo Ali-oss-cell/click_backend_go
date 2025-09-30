@@ -8,14 +8,13 @@ import (
 	"go-click-exprice-backend/models"
 
 	"gorm.io/driver/postgres"
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func ConnectDB(cfg *config.Config) {
-	// Try PostgreSQL first, fallback to SQLite
+	// Use PostgreSQL only - no fallback to SQLite
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=UTC",
 		cfg.Database.Host,
 		cfg.Database.User,
@@ -27,15 +26,9 @@ func ConnectDB(cfg *config.Config) {
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Println("PostgreSQL connection failed, trying SQLite...")
-		DB, err = gorm.Open(sqlite.Open("click_exprice.db"), &gorm.Config{})
-		if err != nil {
-			log.Fatal("Failed to connect to any database:", err)
-		}
-		log.Println("SQLite database connected successfully")
-	} else {
-		log.Println("PostgreSQL database connected successfully")
+		log.Fatal("Failed to connect to PostgreSQL database:", err)
 	}
+	log.Println("PostgreSQL database connected successfully")
 }
 
 func Migrate() {
