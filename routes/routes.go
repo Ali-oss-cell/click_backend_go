@@ -11,8 +11,8 @@ import (
 func SetupRoutes(cfg *config.Config) *gin.Engine {
 	r := gin.Default()
 
-	// Add CORS middleware
-	r.Use(middleware.CORSMiddleware())
+	// CORS is handled by Nginx - removed CORS middleware from Go app
+	// r.Use(middleware.CORSMiddleware()) // ← REMOVED to avoid duplicate headers
 
 	// Add config to context
 	r.Use(func(c *gin.Context) {
