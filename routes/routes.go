@@ -26,6 +26,9 @@ func SetupRoutes(cfg *config.Config) *gin.Engine {
 		// Blog public routes
 		public.GET("/blogs/public", handlers.GetPublicBlogs)
 
+		// Gallery public routes
+		public.GET("/galleries", handlers.GetPublicGalleries)
+
 		// Contact routes
 		public.POST("/contacts", handlers.CreateContact)
 
@@ -44,6 +47,13 @@ func SetupRoutes(cfg *config.Config) *gin.Engine {
 		protected.POST("/blogs", handlers.CreateBlog)
 		protected.PUT("/blogs/:id", handlers.UpdateBlog)
 		protected.DELETE("/blogs/:id", handlers.DeleteBlog)
+
+		// Gallery management (admin only)
+		protected.GET("/galleries/admin", handlers.GetGalleries)
+		protected.GET("/galleries/admin/:id", handlers.GetGallery)
+		protected.POST("/galleries", handlers.CreateGallery)
+		protected.PUT("/galleries/:id", handlers.UpdateGallery)
+		protected.DELETE("/galleries/:id", handlers.DeleteGallery)
 
 		// Contact management (admin only)
 		protected.GET("/contacts", handlers.GetContacts)

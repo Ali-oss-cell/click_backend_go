@@ -32,6 +32,16 @@ type Contact struct {
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 }
 
+// Gallery represents a gallery image
+type Gallery struct {
+	ID        uint           `json:"id" gorm:"primaryKey"`
+	ImageName string         `json:"image_name" gorm:"not null"`
+	ImageFile string         `json:"image_file" gorm:"not null"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `json:"updated_at"`
+	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
+}
+
 // Admin represents the admin user
 type Admin struct {
 	ID        uint      `json:"id" gorm:"primaryKey"`

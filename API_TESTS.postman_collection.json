@@ -100,7 +100,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@clickexpress.ae\",\n    \"password\": \"AdminPass123!\"\n}"
+					"raw": "{\n    \"username\": \"admin\",\n    \"email\": \"admin@clickexpress.ae\",\n    \"password\": \"admin123\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/auth/create-admin",
@@ -144,7 +144,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"AdminPass123!\"\n}"
+					"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/auth/login",
