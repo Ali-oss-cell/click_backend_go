@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -52,20 +53,25 @@ func CreateContact(c *gin.Context) {
 		return
 	}
 
-	// Send email notification to admin
-	emailService := services.NewEmailService(&c.MustGet("config").(*config.Config).SMTP)
-	if err := emailService.SendContactEmail(contact.Name, contact.Email, contact.Subject, contact.Message); err != nil {
-		// Log error but don't fail the request
-		c.Header("X-Email-Error", "Failed to send notification email")
-	}
-
-	// Send confirmation email to user
-	if err := emailService.SendConfirmationEmail(contact.Email, contact.Name); err != nil {
-		// Log error but don't fail the request
-		c.Header("X-Confirmation-Email-Error", "Failed to send confirmation email")
-	}
-
+	// Send response immediately
 	c.JSON(http.StatusCreated, contact)
+
+	// Send emails asynchronously (non-blocking)
+	go func() {
+		emailService := services.NewEmailService(&c.MustGet("config").(*config.Config).SMTP)
+
+		// Send email notification to admin
+		if err := emailService.SendContactEmail(contact.Name, contact.Email, contact.Subject, contact.Message); err != nil {
+			// Log error but don't fail the request
+			fmt.Printf("Failed to send notification email: %v\n", err)
+		}
+
+		// Send confirmation email to user
+		if err := emailService.SendConfirmationEmail(contact.Email, contact.Name); err != nil {
+			// Log error but don't fail the request
+			fmt.Printf("Failed to send confirmation email: %v\n", err)
+		}
+	}()
 }
 
 // UpdateContact updates a contact submission status (admin only)
