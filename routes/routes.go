@@ -67,5 +67,29 @@ func SetupRoutes(cfg *config.Config) *gin.Engine {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
+	// Legacy routes without /api prefix for frontend compatibility
+	legacy := r.Group("/")
+	legacy.Use(middleware.AuthMiddleware(cfg))
+	{
+		// Blog management (admin only) - legacy routes
+		legacy.GET("/blogs", handlers.GetBlogs)
+		legacy.GET("/blogs/:id", handlers.GetBlog)
+		legacy.POST("/blogs", handlers.CreateBlog)
+		legacy.PUT("/blogs/:id", handlers.UpdateBlog)
+		legacy.DELETE("/blogs/:id", handlers.DeleteBlog)
+
+		// Gallery management (admin only) - legacy routes
+		legacy.GET("/galleries/admin", handlers.GetGalleries)
+		legacy.GET("/galleries/admin/:id", handlers.GetGallery)
+		legacy.POST("/galleries", handlers.CreateGallery)
+		legacy.PUT("/galleries/:id", handlers.UpdateGallery)
+		legacy.DELETE("/galleries/:id", handlers.DeleteGallery)
+	}
+
+	// Public legacy routes
+	r.GET("/blogs/public", handlers.GetPublicBlogs)
+	r.GET("/galleries", handlers.GetPublicGalleries)
+	r.POST("/contacts", handlers.CreateContact)
+
 	return r
 }
