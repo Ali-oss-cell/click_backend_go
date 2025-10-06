@@ -16,7 +16,7 @@ import (
 // GetContacts returns all contact submissions (admin only)
 func GetContacts(c *gin.Context) {
 	var contacts []models.Contact
-	if err := database.DB.Find(&contacts).Error; err != nil {
+	if err := database.DB.Order("created_at DESC").Find(&contacts).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch contacts"})
 		return
 	}
