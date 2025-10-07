@@ -24,6 +24,7 @@ type Contact struct {
 	ID        uint           `json:"id" gorm:"primaryKey"`
 	Name      string         `json:"name" gorm:"not null"`
 	Email     string         `json:"email" gorm:"not null"`
+	Phone     string         `json:"phone"`
 	Subject   string         `json:"subject"`
 	Message   string         `json:"message" gorm:"type:text;not null"`
 	Status    string         `json:"status" gorm:"default:'pending'"` // pending, read, replied

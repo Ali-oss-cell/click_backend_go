@@ -17,15 +17,15 @@ func NewEmailService(cfg *config.SMTPConfig) *EmailService {
 	}
 }
 
-func (es *EmailService) SendContactEmail(name, email, subject, message string) error {
+func (es *EmailService) SendContactEmail(name, email, phone, subject, message string) error {
 	if es.config.Username == "" || es.config.Password == "" {
 		return fmt.Errorf("SMTP credentials not configured")
 	}
 
 	// Email content
 	to := es.config.AdminEmail
-	msg := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: New Contact Form Submission\r\n\r\nName: %s\r\nEmail: %s\r\nSubject: %s\r\nMessage: %s\r\n",
-		email, to, name, email, subject, message)
+	msg := fmt.Sprintf("From: %s\r\nTo: %s\r\nSubject: New Contact Form Submission\r\n\r\nName: %s\r\nEmail: %s\r\nPhone: %s\r\nSubject: %s\r\nMessage: %s\r\n",
+		email, to, name, email, phone, subject, message)
 
 	// SMTP authentication
 	auth := smtp.PlainAuth("", es.config.Username, es.config.Password, es.config.Host)
